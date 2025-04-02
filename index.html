@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify Playlist</title>
+    <title>Premium Spotify Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --spotify-green: #1DB954;
+            --spotify-black: #191414;
+            --spotify-dark: #121212;
+            --spotify-light: #ffffff;
+            --neon-pink: #ff36ab;
+            --neon-blue: #00c7ff;
+        }
         
         * {
             margin: 0;
@@ -14,8 +24,8 @@
         }
         
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1DB954, #191414);
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--spotify-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -24,19 +34,366 @@
             color: white;
             padding: 20px;
             overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Particle background effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        /* Sound wave effect */
+        .sound-waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: -1;
+        }
+        
+        .wave {
+            width: 5px;
+            margin: 0 2px;
+            background: linear-gradient(to top, var(--spotify-green), transparent);
+            border-radius: 5px 5px 0 0;
+            animation: wave 1.5s infinite ease-in-out alternate;
+        }
+        
+        @keyframes wave {
+            0% {
+                height: 20px;
+            }
+            100% {
+                height: 100px;
+            }
+        }
+        
+        /* Main content */
+        .header {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 10px var(--spotify-green));
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
         
         .container {
-            max-width: 800px;
             width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+                        0 0 20px rgba(29, 185, 84, 0.3);
+            position: relative;
+            overflow: hidden;
             transform: translateY(50px);
             opacity: 0;
-            animation: fadeIn 1s forwards;
+            animation: fadeIn 1s 0.3s forwards;
+            z-index: 10;
+        }
+        
+        /* Gradient border effect */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--spotify-green), 
+                var(--neon-blue), 
+                var(--neon-pink), 
+                var(--spotify-green));
+            border-radius: 32px;
+            z-index: -1;
+            background-size: 400%;
+            animation: border-animation 12s linear infinite;
+        }
+        
+        @keyframes border-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .title-text {
+            background: linear-gradient(90deg, var(--spotify-green), var(--neon-blue), var(--neon-pink));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-text 5s linear infinite;
+        }
+        
+        @keyframes gradient-text {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+        
+        /* Icon animations */
+        .music-icon {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .equalizer {
+            display: flex;
+            align-items: flex-end;
+            height: 40px;
+            margin: 0 auto 30px;
+        }
+        
+        .bar {
+            width: 6px;
+            background: linear-gradient(to top, var(--spotify-green), var(--neon-blue));
+            margin: 0 3px;
+            border-radius: 3px;
+            animation: equalize 1s infinite alternate;
+        }
+        
+        .bar:nth-child(1) { animation-delay: 0s; height: 15px; }
+        .bar:nth-child(2) { animation-delay: 0.2s; height: 25px; }
+        .bar:nth-child(3) { animation-delay: 0.4s; height: 35px; }
+        .bar:nth-child(4) { animation-delay: 0.6s; height: 20px; }
+        .bar:nth-child(5) { animation-delay: 0.8s; height: 30px; }
+        .bar:nth-child(6) { animation-delay: 1s; height: 10px; }
+        .bar:nth-child(7) { animation-delay: 0.3s; height: 25px; }
+        .bar:nth-child(8) { animation-delay: 0.7s; height: 15px; }
+        
+        @keyframes equalize {
+            0% {
+                height: 5px;
+            }
+            100% {
+                height: 40px;
+            }
+        }
+        
+        /* Spotify wrapper styling */
+        .spotify-container {
+            position: relative;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+        
+        .spotify-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .spotify-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(0.98);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 5;
+        }
+        
+        .spotify-wrapper:hover {
+            transform: scale(1);
+        }
+        
+        /* Controls section */
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+            gap: 20px;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: var(--spotify-green);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(29, 185, 84, 0.7);
+        }
+        
+        .control-btn.play {
+            width: 60px;
+            height: 60px;
+            font-size: 22px;
+            background: linear-gradient(45deg, var(--spotify-green), var(--neon-blue));
+        }
+        
+        /* Description styling */
+        .description {
+            margin-top: 40px;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeIn 1s 0.8s forwards;
+            position: relative;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Info cards */
+        .playlist-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+        
+        .info-card {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            text-align: center;
+            opacity: 0;
+            animation: slideUp 0.6s forwards;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .info-card:nth-child(1) {
+            animation-delay: 1s;
+        }
+        
+        .info-card:nth-child(2) {
+            animation-delay: 1.2s;
+        }
+        
+        .info-card:nth-child(3) {
+            animation-delay: 1.4s;
+        }
+        
+        .info-card i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--spotify-green);
+        }
+        
+        .info-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
         
         @keyframes fadeIn {
@@ -46,152 +403,197 @@
             }
         }
         
-        h1 {
+        /* Footer styling */
+        footer {
+            margin-top: 60px;
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
-            animation: glow 3s infinite alternate;
-        }
-        
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 5px #1DB954, 0 0 10px #1DB954;
-            }
-            to {
-                text-shadow: 0 0 20px #1DB954, 0 0 30px #1DB954;
-            }
-        }
-        
-        .spotify-wrapper {
-            position: relative;
+            font-size: 1rem;
             width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
-        }
-        
-        .spotify-wrapper:hover {
-            transform: scale(1);
-        }
-        
-        .spotify-wrapper::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #1DB954, #191414, #1DB954);
-            border-radius: 14px;
-            z-index: -1;
-            animation: border-animation 3s linear infinite;
-        }
-        
-        @keyframes border-animation {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-        .description {
-            margin-top: 30px;
-            text-align: center;
-            line-height: 1.6;
+            max-width: 800px;
             opacity: 0;
-            animation: fadeIn 1s 0.5s forwards;
+            animation: fadeIn 1s 1.6s forwards;
+            position: relative;
         }
         
-        .music-icon {
+        .social-links {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            gap: 20px;
+            margin-top: 20px;
         }
         
-        .music-note {
-            width: 20px;
-            height: 20px;
-            background: white;
+        .social-links a {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            margin: 0 10px;
-            animation: bounce 1s infinite alternate;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
         
-        .music-note:nth-child(1) {
-            animation-delay: 0s;
+        .social-links a:hover {
+            background: var(--spotify-green);
+            transform: translateY(-5px);
         }
         
-        .music-note:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        
-        .music-note:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        
-        @keyframes bounce {
-            from {
-                transform: translateY(0);
-            }
-            to {
-                transform: translateY(-20px);
-            }
-        }
-        
-        footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            animation: fadeIn 1s 1s forwards;
-            opacity: 0;
-        }
-        
+        /* Responsive design */
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 30px 20px;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
+            }
+            
+            .playlist-info {
+                flex-direction: column;
+            }
+            
+            .equalizer {
+                height: 30px;
+            }
+            
+            .bar {
+                width: 4px;
+                margin: 0 2px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Particle background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Sound waves at bottom -->
+    <div class="sound-waves" id="sound-waves"></div>
+    
+    <!-- Header with logo -->
+    <div class="header">
+        <svg class="logo" viewBox="0 0 168 168" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#1DB954" d="M83.996.277C37.747.277.253 37.77.253 84.019c0 46.251 37.494 83.741 83.743 83.741 46.254 0 83.744-37.49 83.744-83.741 0-46.246-37.49-83.738-83.745-83.738l.001-.004zm38.404 120.78a5.217 5.217 0 01-7.18 1.73c-19.662-12.01-44.414-14.73-73.564-8.07a5.222 5.222 0 01-6.249-3.93 5.213 5.213 0 013.926-6.25c31.9-7.291 59.263-4.15 81.337 9.34 2.46 1.51 3.24 4.72 1.73 7.18zm10.25-22.805c-1.89 3.075-5.91 4.045-8.98 2.155-22.51-13.839-56.823-17.846-83.448-9.764-3.453 1.043-7.1-.903-8.148-4.35a6.538 6.538 0 014.354-8.143c30.413-9.228 68.222-4.758 94.072 11.127 3.07 1.89 4.04 5.91 2.15 8.976v-.001zm.88-23.744c-26.99-16.031-71.52-17.505-97.289-9.684-4.138 1.255-8.514-1.081-9.768-5.219a7.835 7.835 0 015.221-9.771c29.581-8.98 78.756-7.245 109.83 11.202a7.823 7.823 0 012.74 10.733c-2.2 3.722-7.02 4.949-10.73 2.739z"/>
+        </svg>
+        <h1><span class="title-text">Premium Music Experience</span></h1>
+    </div>
+    
     <div class="container">
-        <h1>Spotify Playlist</h1>
-        
-        <div class="music-icon">
-            <div class="music-note"></div>
-            <div class="music-note"></div>
-            <div class="music-note"></div>
+        <div class="equalizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
         
-        <div class="spotify-wrapper">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1eVwcl7Oh3aOj2aGscPWwf?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <div class="spotify-container">
+            <div class="spotify-wrapper">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1eVwcl7Oh3aOj2aGscPWwf?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn"><i class="fas fa-backward"></i></button>
+                <button class="control-btn play"><i class="fas fa-play"></i></button>
+                <button class="control-btn"><i class="fas fa-forward"></i></button>
+            </div>
         </div>
         
         <div class="description">
-            <p>Thưởng thức những bản nhạc yêu thích của bạn với trình phát Spotify được nhúng. Nhấp vào các bài hát để nghe ngay!</p>
+            <p>Hãy thưởng thức trọn vẹn trải nghiệm nghe nhạc của bạn với bộ sưu tập nhạc tuyển chọn kỹ lưỡng này. Âm nhạc đồng hành cùng bạn mọi lúc, mọi nơi.</p>
+        </div>
+        
+        <div class="playlist-info">
+            <div class="info-card">
+                <i class="fas fa-headphones-alt"></i>
+                <h3>Chất lượng cao</h3>
+                <p>Thưởng thức âm thanh chất lượng cao với công nghệ Spotify Premium.</p>
+            </div>
+            
+            <div class="info-card">
+                <i class="fas fa-music"></i>
+                <h3>Danh sách phát</h3>
+                <p>Khám phá các danh sách phát được tuyển chọn bởi các chuyên gia âm nhạc.</p>
+            </div>
+            
+            <div class="info-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Nghe ở mọi nơi</h3>
+                <p>Dễ dàng truy cập vào âm nhạc yêu thích của bạn trên mọi thiết bị.</p>
+            </div>
         </div>
     </div>
     
     <footer>
-        &copy; 2025 Spotify Playlist Viewer | Được tạo với ❤️
+        <p>&copy; 2025 Premium Music Experience | Nâng tầm trải nghiệm âm nhạc của bạn</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-spotify"></i></a>
+        </div>
     </footer>
     
     <script>
+        // Create particles
         document.addEventListener('DOMContentLoaded', function() {
-            // Thêm hiệu ứng cho iframe khi trang tải xong
-            const spotifyWrapper = document.querySelector('.spotify-wrapper');
+            const particlesContainer = document.getElementById('particles');
+            const numberOfParticles = 100;
             
-            // Thêm hiệu ứng hover cho các phần tử khác
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                const posX = Math.random() * 100;
+                particle.style.left = `${posX}%`;
+                
+                // Random size
+                const size = Math.random() * 3 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random opacity
+                const opacity = Math.random() * 0.5 + 0.3;
+                particle.style.opacity = opacity;
+                
+                // Random animation duration
+                const duration = Math.random() * 15 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                const delay = Math.random() * 10;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Create sound waves
+            const soundWavesContainer = document.getElementById('sound-waves');
+            const numberOfWaves = 50;
+            
+            for (let i = 0; i < numberOfWaves; i++) {
+                const wave = document.createElement('div');
+                wave.classList.add('wave');
+                
+                // Random animation duration
+                const duration = Math.random() * 1 + 0.5;
+                wave.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                const delay = Math.random() * 0.5;
+                wave.style.animationDelay = `${delay}s`;
+                
+                soundWavesContainer.appendChild(wave);
+            }
+            
+            // 3D effect on container
             const container = document.querySelector('.container');
             container.addEventListener('mousemove', function(e) {
                 const x = e.clientX - container.getBoundingClientRect().left;
@@ -200,14 +602,31 @@
                 const centerX = container.offsetWidth / 2;
                 const centerY = container.offsetHeight / 2;
                 
-                const moveX = (x - centerX) / 30;
-                const moveY = (y - centerY) / 30;
+                // Calculate rotation based on mouse position
+                const moveX = (x - centerX) / 20;
+                const moveY = (y - centerY) / 20;
                 
-                container.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg)`;
+                container.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg) translateZ(10px)`;
             });
             
             container.addEventListener('mouseleave', function() {
-                container.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+                container.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateZ(0)';
+                container.style.transition = 'transform 0.5s ease';
+            });
+            
+            // Play button functionality
+            const playButton = document.querySelector('.control-btn.play');
+            let isPlaying = false;
+            
+            playButton.addEventListener('click', function() {
+                if (isPlaying) {
+                    playButton.innerHTML = '<i class="fas fa-play"></i>';
+                    // Add pause functionality for your audio here
+                } else {
+                    playButton.innerHTML = '<i class="fas fa-pause"></i>';
+                    // Add play functionality for your audio here
+                }
+                isPlaying = !isPlaying;
             });
         });
     </script>
