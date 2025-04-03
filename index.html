@@ -344,7 +344,11 @@
         </div>
     </nav>
     
-  
+    <div class="cyber-loader">
+        <div class="terminal-loader">
+            DOI MOT CHUT...
+        </div>
+    </div>
 
     <div id="vanta-canvas"></div>
     <canvas class="matrix-rain"></canvas>
@@ -400,7 +404,14 @@
 
         setInterval(drawMatrix, 50);
 
-       
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.cyber-loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.cyber-loader').style.display = 'none';
+                }, 1000);
+            }, 2000);
+        });
 
         document.querySelector('.cyber-card').addEventListener('mousemove', (e) => {
             const card = e.currentTarget;
